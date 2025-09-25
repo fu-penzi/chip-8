@@ -9,7 +9,10 @@ rand = "0.8.5"
 [dependencies.sdl2]
 version = "0.38"
 default-features = false
-features = ["ttf", "image", "gfx", "mixer", "static-link", "use-vcpkg"]
+features = [
+    #    "static-link",
+    #    "use-vcpkg"
+]
 
 [package.metadata.vcpkg]
 dependencies = ["sdl2"]
