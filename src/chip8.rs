@@ -1,6 +1,5 @@
 use rand;
-use rand::RngCore;
-use rand::{Rng, random};
+use rand::random;
 use std::fs;
 
 pub const DISP_WIDTH: usize = 64;
@@ -130,7 +129,7 @@ impl Chip8 {
         let digit_1 = (opcode & 0xF000) >> 12;
         let digit_2 = (opcode & 0x0F00) >> 8;
         let digit_3 = (opcode & 0x00F0) >> 4;
-        let digit_4 = (opcode & 0x000F);
+        let digit_4 = opcode & 0x000F;
 
         match (digit_1, digit_2, digit_3, digit_4) {
             (0, 0, 0xE, 0) => self.op_00e0(),
@@ -473,7 +472,7 @@ impl Chip8 {
     /// `BCD Vx`
     /// Decode Vx to decimal.
     /// Set `RAM[I], RAM[I+1], RAM[I+2]` to hundreds, tens and ones.
-    /// 
+    ///
     /// ex. for `Vx = 123` => `RAM[I] = 1; RAM[I+1] = 2; RAM[I+2] = 3`
     fn op_fx33(&mut self) {
         let x: usize = ((self.opcode & 0x0F00) >> 8) as usize;
